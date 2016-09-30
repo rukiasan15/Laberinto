@@ -1,0 +1,412 @@
+//package a;
+import javax.swing.*;
+import javax.swing.JButton.*;
+
+import java.awt.event.*;
+import java.util.Random;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.applet.*;
+import java.awt.*;
+
+import java.util.Calendar;
+
+
+public class laberinto extends Applet{
+	
+	int cont, seg=0, extra=0;
+
+	private boolean arriba, abajo, izquierda, derecha;	
+	Image img, aba, flor, fondo, lluvia, nube, meta, fuegos, lilas, laz, buffer; 
+	private int x, y, com, cod, i, k, j, pod=0, p;
+	
+
+private laberinto hilo;
+Button b, s, a, c; etiqueta menu; ventana win;	
+	Graphics pantalla;
+	
+Random r=new Random();
+
+AudioClip clip, sonido;
+
+public void init(){
+
+setSize(0,0); 
+	fondo=getImage(getDocumentBase(),"templo_anime_by_nashi4-d5rxulp.jpg");
+	img=getImage(getDocumentBase(),"Temari.gif");
+flor=getImage(getDocumentBase(),"flor.png");
+	aba=getImage(getDocumentBase(),"abanico.png");
+	lluvia=getImage(getDocumentBase(),"gifs-animados-lluvia-5039176.gif");
+	nube=getImage(getDocumentBase(),"nube.png");
+	meta=getImage(getDocumentBase(),"descarga.jpg");
+	fuegos=getImage(getDocumentBase(),"fuegos-artificiales-10.gif");
+	lilas=getImage(getDocumentBase(),"flores003.png");
+	laz=getImage(getDocumentBase(),"jb-vicfan15-784889.png");
+	clip=getAudioClip(getDocumentBase(),"My secret.wav");
+	sonido=getAudioClip(getDocumentBase(),"Doll.wav");
+	x=101; y=123;   
+	buffer=createImage(800,680);
+	pantalla=buffer.getGraphics();
+	menu= new etiqueta(); menu.setSize(820,720); menu.setVisible(true);
+	win=new ventana(); win.setSize(820,720);// win.setVisible(true);
+
+}
+
+
+
+
+public void f(){
+	for(;;) 
+	{	i=r.nextInt(649)+0; if(i==648 || i==310) {break;}}
+	 
+//if(i==105) {j=473; } if(i==300) {j=173;} 
+	if(i==360) {j=273;} if(i==648) {j=323;} if(i==310) {j=423;}
+
+
+for(;;)
+{ k=r.nextInt(649)+0; if(k==290 || k==235) {break;}}
+
+if(k==648) {p=123;} if(k==290) {p=323;} if(k==235) {p=423;} if(k==260) {p=223;}
+
+}
+
+
+public laberinto() {
+	
+	
+	f(); 
+	
+
+addKeyListener(new KeyAdapter() { 
+    public void keyPressed(KeyEvent e) {
+        actualiza(e.getKeyCode(), true);
+    }
+
+    public void keyReleased(KeyEvent e) {
+        actualiza(e.getKeyCode(), false);
+    }
+
+    private void actualiza(int keyCode, boolean pressed) {
+       switch (keyCode) {
+//ARRIBA
+        	case KeyEvent.VK_UP:
+                arriba = pressed; ar(); 
+              
+               break;
+//ABAJO
+            case KeyEvent.VK_DOWN:
+                abajo = pressed;  ab();
+       
+                break; 
+//IZQUIERDA
+            case KeyEvent.VK_LEFT:
+                izquierda = pressed; iz();
+                
+                break;
+//DERECHA
+            case KeyEvent.VK_RIGHT:
+                derecha = pressed; de();
+                
+                break;
+        }
+    }
+});
+setFocusable(true);
+}
+
+
+
+
+private void ar(){
+	 if(x>=640 && x<700 && y>121 && y<=273){y=y-2; update(null); }
+     if(x>=571 && x<593 && y>171 && y<=223) {y=y-2; update(null);}
+     if(x>221 && x<235 && y>221 && y<=373) {y=y-2; update(null);} 
+    if(x>102 && x<115 && y>221 && y<=473) {y=y-2; update(null);}
+     if(x>155 && x<174 && y>271 && y<=373) {y=y-2; update(null);}
+     if(x>458 && x<=472 && y>271 && y<=473) {y=y-2; update(null);}
+     if(x>=285 && x<=300 && y>271 && y<=323) {y=y-2; update(null);}
+     if(x>=518 && x<=534 && y>321 && y<=373) {y=y-2; update(null);}
+     if(x>140 && x<172 && y>421 && y<=473) {y=y-2; update(null);}
+     //if(x>403 && x<465 && y>271 && y<=423) {y=y-2; update(null);}
+     if(x>346 && x<356 && y>421 && y<=473) {y=y-2; update(null);}
+     if(x>=219 && x<=305 && y>471 && y<=523) {y=y-2; update(null); }
+     if(x>403 && x<474 && y>371 && y<=423) {y=y-2; update(null);}
+     
+}
+	
+private void ab(){
+    if(x>=640 && x<700 && y>=121 && y<273) {y=y+2; update(null); }
+    if(x>=571 && x<595 && y>=171 && y<223) {y=y+2; update(null);}
+    if(x>221 && x<235 && y>=221 && y<373) {y=y+2; update(null);}
+    if(x>102 && x<115 && y>=221 && y<473) {y=y+2; update(null);}
+    if(x>155 && x<174 && y>=271 && y<373) {y=y+2; update(null); }
+    if(x>=458 && x<=472 && y>=271 && y<473) { y=y+2; update(null);}
+    if(x>=285 && x<=300 && y>=271 && y<323) {y=y+2; update(null);}
+    if(x>=523 && x<=534 && y>=321 && y<373) {y=y+2; update(null);}
+    if(x>=102 && x<172 && y>=421 && y<473) {y=y+2; update(null); }
+    //if(x>=403 && x<465 && y>=371 && y<423) {y=y+2; update(null); }
+    if(x>=346 && x<356 && y>=421 && y<473) {y=y+2; update(null);}
+    if(x>=219 && x<=305 && y>=471 && y<523) {y=y+2; update(null);}
+    if(x>403 && x<474 && y>=371 && y<423) {y=y+2; update(null);}
+    
+}
+
+private void iz(){
+	//if(x>=378 && x<=422) {x=123; update(null);}
+	if(x>102 && y>=121 && y<=123) {x=x-2; update(null); }
+    if(x>104 && y>=171 && y<=173) {x=x-2; update(null);}
+    if(x<=640 && x>224 && y>=221 && y<=223) {x=x-2; update(null);}
+    if(x>106 && x<=648 && y>=371 && y<=373) {x=x-2; update(null); }
+    if(x>106 && x<=170 && y>=221 && y<=223) {x=x-2; update(null);}
+    if(x>=350 && x<595 && y>=271 && y<=273) {x=x-2; update(null);}
+    if(x>285 && x<=472 && y>=321 && y<=323) {x=x-2; update(null); }
+    if(x>523 && x<=652 && y>=321 && y<=323) {x=x-2; update(null);}
+    if(x>106 && x<=250 && y>=421 && y<=423){x=x-2; update(null);}
+    if(x>106 && x<=172 && y>=471 && y<=473){x=x-2; update(null); }
+    if(x>403 && x<=652 && y>=421 && y<=423) {x=x-2; update(null); }
+    if(x>219 && x<=652 && y>=471 && y<=473) {x=x-2; update(null);}
+    if(x>300 && x<=355 && y>=421 && y<=423) {x=x-2; update(null);}
+    if(x>104 && y>=521 && y<=539) {x=x-2; update(null);}
+    if(x>106 && x<=172 && y>=421 && y<=473) {x=x-2; update(null);}
+    if(x>403 && x<474 && y>=371 && y<=423) {x=x-2; update(null); }
+    if(x>219 && x<=305 && y>=471 && y<=523) {x=x-2; update(null);}
+}
+
+private void de(){
+	//if(x>=378 && x<=422) {x=450; update(null);}
+	if(x<=648 && y>=121 && y<=123) {x=x+2; update(null); }
+    if(x<=648 && y>=171 && y<=173) {x=x+2; update(null);}
+    if(x<590 && x>=221 && y>=221 && y<=223) {x=x+2; update(null); }
+    if(x<=648 && y>=371 && y<=373) {x=x+2; update(null); }
+    if(x<=168 && y>=221 && y<=223) {x=x+2; update(null);}
+    if(x<=590 && x>=345 && y>=271 && y<=273) {x=x+2; update(null); }
+    if(x>283 && x<=470 && y>=321 && y<=323) {x=x+2; update(null);}
+    if(x>521 && x<=648 && y>=321 && y<=323) {x=x+2; update(null);}
+    if(x>104 && x<=248 && y>=421 && y<=423) {x=x+2; update(null); }
+    if(x>104 && x<=170 && y>=471 && y<=473) {x=x+2; update(null);}
+    if(x>401 && x<=648 && y>=421 && y<=423) {x=x+2; update(null);}
+    if(x>217 && x<=648 && y>=471 && y<=473) {x=x+2; update(null);}
+    if(x>298 && x<=353 && y>=421 && y<=423) {x=x+2; update(null);}
+    if(x<=700 && y>=521 && y<=539) {x=x+2; update(null);}
+    if(x>104 && x<=170 && y>=421 && y<=473) {x=x+2; update(null);}
+    if(x>401 && x<472 && y>=371 && y<=423) {x=x+2; update(null);}
+    if(x>217 && x<=303 && y>=471 && y<=523) {x=x+2; update(null);}
+}
+public void tiempo(){
+	Calendar n= Calendar.getInstance();
+	cont=n.get(Calendar.SECOND);
+	seg++; if(seg==170) {seg=0; }
+	extra++; if(extra==210) {extra=0; }
+	
+}
+
+public void paint(Graphics a){
+	
+	
+	tiempo(); if(pod==0 || pod==3){fi(); } if(pod==1) { resize(800,650); } 
+	//System.out.print(x+"\n");
+
+	//fondo
+	//a.setColor(Color.white);
+	 //a.fillRect(0,0,800,680); 
+	 a.drawImage(fondo,0,0,800,700,this);
+	
+	
+	
+	//laberinto
+	a.setColor(Color.black); a.drawLine(100,120,700,120); a.setColor(Color.black); a.drawLine(100,119,700,119);
+	
+	a.setColor(Color.black);	a.drawLine(100,170,640,170); a.setColor(Color.black);	a.drawLine(100,169,640,169);
+	
+	a.setColor(Color.black); a.drawLine(100,220,580,220); a.setColor(Color.black); a.drawLine(100,219,580,219);
+	
+	a.setColor(Color.black);	a.drawLine(100,170,100,570); a.setColor(Color.black); a.drawLine(101,170,101,570);
+	
+	a.setColor(Color.black); a.drawLine(700,120,700,520); a.setColor(Color.black); a.drawLine(699,120,699,520);
+	
+	a.setColor(Color.black); a.drawLine(100,570,700,570); a.setColor(Color.black); a.drawLine(100,569,700,569);
+	
+	a.setColor(Color.black); a.drawLine(640,220,640,320); a.setColor(Color.black); a.drawLine(641,220,641,320);
+	
+	a.setColor(Color.black); a.drawLine(640,320,698,320); a.setColor(Color.black); a.drawLine(640,319,698,319);
+	
+	a.setColor(Color.black);	a.drawLine(220,220,220,370); a.setColor(Color.black);	a.drawLine(221,220,221,370);
+	
+	a.setColor(Color.black); a.drawLine(160,270,220,270); a.setColor(Color.black); a.drawLine(160,269,220,269);
+	
+	a.setColor(Color.black); a.drawLine(160,270,160,370); a.setColor(Color.black); a.drawLine(159,270,159,370);
+	
+	a.setColor(Color.black);	a.drawLine(280,270,640,270); a.setColor(Color.black); a.drawLine(280,269,640,269);
+	
+	a.setColor(Color.black); a.drawLine(280,270,280,370); a.setColor(Color.black); a.drawLine(279,270,279,370);
+	
+	a.setColor(Color.black); a.drawLine(280,370,460,370); a.setColor(Color.black); a.drawLine(280,369,460,369);
+	
+	a.setColor(Color.black);a.drawLine(640,320,520,320); a.setColor(Color.black);a.drawLine(640,319,520,319);
+	
+	a.setColor(Color.black);a.drawLine(340,320,460,320); a.setColor(Color.black);a.drawLine(340,319,460,319);
+	
+	a.setColor(Color.black); a.drawLine(340,270,340,320); a.setColor(Color.black); a.drawLine(339,270,339,320);
+	
+	a.setColor(Color.black);a.drawLine(520,320,520,370); a.setColor(Color.black);a.drawLine(521,320,521,370);
+	
+	a.setColor(Color.black);	a.drawLine(160,420,400,420); a.setColor(Color.black); a.drawLine(160,421,400,421);
+	
+	a.setColor(Color.black);a.drawLine(520,420,698,420);a.setColor(Color.black);a.drawLine(520,419,698,419);
+	
+	a.setColor(Color.black);	a.drawLine(300,420,300,470); a.setColor(Color.black); a.drawLine(301,420,301,470);
+	
+	a.setColor(Color.black);	a.drawLine(400,420,400,470); a.setColor(Color.black); a.drawLine(401,420,401,470);
+	
+	a.setColor(Color.black);	a.drawLine(401,470,460,470);a.setColor(Color.black);	a.drawLine(401,469,460,469);
+	
+	a.setColor(Color.black);a.drawLine(520,470,698,470); a.setColor(Color.black);a.drawLine(520,469,698,469);
+	
+	a.setColor(Color.black);a.drawLine(300,470,350,470);a.setColor(Color.black);a.drawLine(300,469,350,469);
+	
+	a.setColor(Color.black); a.drawLine(350,520,700,520); a.setColor(Color.black); a.drawLine(350,519,700,519);
+	
+	a.setColor(Color.black); a.drawLine(100,520,220,520); a.setColor(Color.black); a.drawLine(100,519,220,519);
+	
+	a.setColor(Color.black); a.drawLine(220,470,220,520); a.setColor(Color.black); a.drawLine(221,470,221,520);
+	
+	a.setColor(Color.black);a.drawLine(220,470,300,470); a.setColor(Color.black);a.drawLine(220,469,300,469);
+	
+	a.setColor(Color.black);a.drawLine(580,370,700,370);a.setColor(Color.black);a.drawLine(580,369,700,369);
+	
+	//imagen
+	 a.drawImage(img,x,y,50,50,this);
+ 
+if(x>=235 && x<=293 && seg>=5 && seg<=75 && y==123) { x=101; y=123; com=cod=0; f(); }
+if(x>=335 && x<=393 && seg>=46 && seg<=116 && y>=221 && y<=223) {x=101; y=123; com=cod=0;f();}
+if(x>=530 && x<=560 && extra>=80 && extra<=150 && y>=321 && y<=373) {x=101; y=123; com=cod=0;f();}
+if(x>=275 && x<=343 && extra>=140 && extra<=210 && y>=471 && y<=523) {x=101; y=123; com=cod=0; f(); }
+if(x>=670 && x<=900 && y>=521 && y<=523 && com==1 && cod==2) { pod=3; }
+if(pod==3) {x=101; y=123; com=cod=0; f(); win.setVisible(true); }
+//if(pod==4) {x=101; y=123; com=cod=0; f(); pod=1; }
+	//obstaculos
+	
+	a.drawImage(nube,250,95,95,40,this);
+	if(seg>=5 && seg<=75) {a.drawImage(lluvia,270,123,45,45,this); }  
+	/*a.drawImage(nube,500,145,95,40,this);
+	if(seg>=66 && seg<=136) {a.drawImage(lluvia,420,173,45,45,this);}*/
+	a.drawImage(nube,350,195,95,40,this);
+	if(seg>=46 && seg<=116) { a.drawImage(lluvia,370,223,45,45,this);}
+	a.drawImage(nube,510,295,95,40,this);
+	if(extra>=80 && extra<=150) {a.drawImage(lluvia,530,323,45,100,this);} 
+	a.drawImage(nube,280,445,95,40,this);
+	if(extra>=140 && extra<=210) { a.drawImage(lluvia,300,473,45,100,this);}
+	
+	
+//busqueda de objetos
+//if(j==473) { if(x<=119 && x>=105 && y>=471 && y<=473) {com=1; }}
+if(j==423) { if(x<=317 && x>=310 && y>=421 && y<=423) {com=1; }} 
+//if(j==273)	{if(x<=373 && x>=360 && y>=271 && y<=273) {com=1; } }
+if(j==323) {if(x>=630 && x<=700 && y>=321 && y<=323) {com=1; } } 
+if(com!=1) {a.drawImage(flor,i,j,43,43,this); }
+
+if(p==323) {if(x<=313 && x>=290 && y>=321 && y<=323) {cod=2; }}
+if(p==423) {if(x>=230 && x<=235 && y>=421 && y<=423) {cod=2; }}
+//if(p==123) {if(x>=635 && x<=648 && y==123) {cod=2; }}
+//if(p==223) { if(x>=155 && x<=164 && y>=221 && y<=223) {cod=2; }}
+if(cod!=2) { a.drawImage(laz,k,p,43,43,this);} 
+	
+	
+
+
+
+	}
+
+
+
+
+
+public void update(Graphics a){
+	paint(pantalla);
+	a.drawImage(buffer,0,0,800,680,this);
+}
+public void em(){
+pod=1; setSize(800,650);
+}
+
+public void fi(){
+	resize(0,0); 
+}
+
+
+class etiqueta extends Frame{
+	
+	etiqueta(){ 
+		super(); setResizable(false);
+       setLayout(new FlowLayout());     	
+       b= new Button("jugar"); add(b); 
+           s= new Button("salir"); add(s); sonido.play();
+		}
+
+	public void paint(Graphics a){
+		a.drawImage(meta,0,0,850,750,this);	
+		a.drawImage(img,300,270,270,270,this);
+		
+	}
+	public void update(Graphics a){
+		paint(pantalla);
+		a.drawImage(buffer,0,0,850,750,this);
+	}
+	public boolean action(Event e, Object o){
+		if(e.target==b) {sonido.stop(); clip.loop(); em(); setVisible(false);  }
+		if(e.target==s) { System.exit(0);  }
+		return true;
+	}
+
+}
+
+class ventana extends Frame {
+	
+	ventana(){ 
+		super(); setResizable(false);
+	setLayout(new FlowLayout());
+	a= new Button("jugar de nuevo"); add(a);
+	c= new Button("salir"); add(c);
+	}
+public void paint(Graphics a){
+	a.drawImage(meta,0,0,820,720,this);	
+	a.drawImage(fuegos,170,0,550,350,this);
+	a.drawImage(img,270,270,270,270,this); 
+	a.drawImage(lilas,45,450,120,120,this);  a.drawImage(lilas,650,450,120,120,this);
+	a.drawImage(aba,90,560,200,190,this);	a.drawImage(aba,570,560,200,190,this);
+
+	a.setFont(new Font("Comic Sans MS",Font.BOLD,100)); a.setColor(Color.pink);
+	a.drawString("GANASTE",200,140); 
+}
+public void update(Graphics a){
+	paint(pantalla);
+	a.drawImage(buffer,0,0,820,720,this);
+}
+public boolean action(Event e, Object o){
+	if(e.target==a) { em(); setVisible(false); }
+	if(e.target==c) {System.exit(0); }
+return true;}
+}
+
+
+
+	
+}
+
+
+
+
+
+
+ 
+
+
+
+
